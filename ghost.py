@@ -1,16 +1,8 @@
 import pygame
 import random
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 576
+import utils.constants as constant
 
-# game colors / couleurs du jeu
-
-BLACK = (0,0,0)
-WHITE = (255,255,255)
-BLUE = (0,0,255)
-GREEN = (0,255,0)
-RED = (255,0,0)
 
 class Block(pygame.sprite.Sprite):
     def __init__(self, x, y, color, width, height):
@@ -32,8 +24,8 @@ class Ellipse(pygame.sprite.Sprite):
         
         # Sets the background color as transparent / Définit la couleur d'arrière plan comme transparente
         self.image = pygame.Surface([width, height])
-        self.image.fill(BLACK)
-        self.image.set_colorkey(BLACK)
+        self.image.fill(constant.BLACK)
+        self.image.set_colorkey(constant.BLACK)
         
         # Draw the ellipse / Dessine l'ellipse
         pygame.draw.ellipse(self.image, color, [0 , 0, width, height])
@@ -61,13 +53,13 @@ class Ghost(pygame.sprite.Sprite):
         self.rect.y += self.change_y
         
         if self.rect.right < 0:
-            self.rect.left = SCREEN_WIDTH
-        elif self.rect.left > SCREEN_WIDTH:
+            self.rect.left = constant.SCREEN_WIDTH
+        elif self.rect.left > constant.SCREEN_WIDTH:
             self.rect.right = 0
             
         if self.rect.bottom < 0:
-            self.rect.top = SCREEN_HEIGHT
-        elif self.rect.top > SCREEN_HEIGHT:
+            self.rect.top = constant.SCREEN_HEIGHT
+        elif self.rect.top > constant.SCREEN_HEIGHT:
             self.rect.bottom = 0
             
         if  self.rect.topleft in self.get_intersection_position():
@@ -88,16 +80,13 @@ class Ghost(pygame.sprite.Sprite):
     def get_intersection_position(self):
         items = []
         for i,row in enumerate(enviroment()):
-            for j,item in enumerate(row):
-                if item == 3:
-                    items.append((j*32,i*32))
-
+            items.extend((j*32, i*32) for j, item in enumerate(row) if item == 3)
         return items
   
     
 # Definition of the playground / Définition du terrain de jeu
 def enviroment():
-    grid = ((0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0),
+    return ((0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0),
             (0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0),
             (1,3,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,3,1,1,1,1,1,3,1),
             (0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0),
@@ -116,14 +105,13 @@ def enviroment():
             (0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0),
             (0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0))
     
-    return grid
 
 def draw_enviroment(screen):
     for i,row in enumerate(enviroment()):
         for j,item in enumerate(row):
             if item == 1:
-                pygame.draw.line(screen, BLUE , [j*32, i*32], [j*32+32,i*32], 3)
-                pygame.draw.line(screen, BLUE , [j*32, i*32+32], [j*32+32,i*32+32], 3)
+                pygame.draw.line(screen, constant.BLUE , [j*32, i*32], [j*32+32,i*32], 3)
+                pygame.draw.line(screen, constant.BLUE , [j*32, i*32+32], [j*32+32,i*32+32], 3)
             elif item == 2:
-                pygame.draw.line(screen, BLUE , [j*32, i*32], [j*32,i*32+32], 3)
-                pygame.draw.line(screen, BLUE , [j*32+32, i*32], [j*32+32,i*32+32], 3)
+                pygame.draw.line(screen, constant.BLUE , [j*32, i*32], [j*32,i*32+32], 3)
+                pygame.draw.line(screen, constant.BLUE , [j*32+32, i*32], [j*32+32,i*32+32], 3)

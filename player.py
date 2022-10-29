@@ -1,11 +1,7 @@
 import pygame
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 576
+import utils.constants as constant
 
-# game colors / couleurs du jeu
-BLACK = (0,0,0)
-WHITE = (255,255,255)
 
 class Player(pygame.sprite.Sprite):
     change_x = 0
@@ -16,7 +12,7 @@ class Player(pygame.sprite.Sprite):
         # Call the constructor of the parent class (Sprite) / Appelle le construteur de la classe parent (Sprite)
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(filename).convert()
-        self.image.set_colorkey(BLACK)
+        self.image.set_colorkey(constant.BLACK)
         self.rect = self.image.get_rect()
         self.rect.topleft = (x,y)
         # Load image which will be for the animation / Charge l'image qui servira à l'animation
@@ -31,17 +27,17 @@ class Player(pygame.sprite.Sprite):
         self.explosion_animation = Animation(img,30,30)
         # Save the player image / Sauvegarde l'image du joueur
         self.player_image = pygame.image.load(filename).convert()
-        self.player_image.set_colorkey(BLACK)
+        self.player_image.set_colorkey(constant.BLACK)
 
     def update(self,horizontal_blocks,vertical_blocks):
         if not self.explosion:
             if self.rect.right < 0:
-                self.rect.left = SCREEN_WIDTH
-            elif self.rect.left > SCREEN_WIDTH:
+                self.rect.left = constant.SCREEN_WIDTH
+            elif self.rect.left > constant.SCREEN_WIDTH:
                 self.rect.right = 0
             if self.rect.bottom < 0:
-                self.rect.top = SCREEN_HEIGHT
-            elif self.rect.top > SCREEN_HEIGHT:
+                self.rect.top = constant.SCREEN_HEIGHT
+            elif self.rect.top > constant.SCREEN_HEIGHT:
                 self.rect.bottom = 0
             self.rect.x += self.change_x
             self.rect.y += self.change_y

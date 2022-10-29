@@ -1,14 +1,13 @@
 import pygame
 from game import Game
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 576
+import utils.constants as constant
 
 def main():
     # Initialize all imported pygame modules / Initialise tous les modules pygame importés 
     pygame.init()
     # Set the width and height of the screen [width, height] / Réglez la largeur et la hauteur de l'écran [width, height].
-    screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((constant.SCREEN_WIDTH, constant.SCREEN_HEIGHT))
     # Set the current window caption / Définit la légende de la fenêtre actuelle
     pygame.display.set_caption("PACMAN")
     # Loop until the user clicks the close button. / Boucle jusqu'à ce que l'utilisateur clique sur le bouton de fermeture.
