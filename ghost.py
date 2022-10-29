@@ -52,7 +52,7 @@ class Ghost(pygame.sprite.Sprite):
         self.change_y = change_y
         
         # load the image / charge l'image
-        self.image = pygame.image.load("files/chost.png").convert_alpha()
+        self.image = pygame.image.load("files/ghost.png").convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
         
@@ -118,7 +118,7 @@ def enviroment():
     
     return grid
 
-def draw_enviroment(self, screen):
+def draw_enviroment(screen):
     for i,row in enumerate(enviroment()):
         for j,item in enumerate(row):
             if item == 1:
